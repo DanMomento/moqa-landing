@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moqa — Your career starts before graduation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1D9E75;
+    --green-deep: #157256;
+    --green-pale: #E8F5F0;
+    --ink: #0F1A15;
+    --ink-soft: #3A4742;
+    --muted: #7A8C85;
+    --cream: #F7F4EF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(247,244,239,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(29,158,117,0.1);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--green); letter-spacing: -0.5px; }
+  .nav-cta {
+    background: var(--green); color: white; border: none; padding: 10px 24px;
+    border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 14px;
+    font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--green-deep); }
+
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 120px 24px 80px; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(29,158,117,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-pale); color: var(--green-deep);
+    border: 1px solid rgba(29,158,117,0.25); padding: 6px 16px;
+    border-radius: 999px; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; background: var(--green);
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 7vw, 88px); font-weight: 900;
+    line-height: 1.05; letter-spacing: -2px; color: var(--ink); max-width: 800px;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+  .hero h1 em { font-style: italic; color: var(--green); }
+  .hero-sub {
+    margin-top: 24px; font-size: 18px; font-weight: 300; color: var(--ink-soft);
+    max-width: 480px; line-height: 1.7; animation: fadeUp 0.6s ease 0.2s both;
+  }
+  .hero-cta-btn {
+    margin-top: 48px; display: inline-block; padding: 16px 40px;
+    background: var(--green); color: white; border: none; border-radius: 999px;
+    font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500;
+    cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.1s;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+  .hero-cta-btn:hover { background: var(--green-deep); transform: translateY(-2px); }
+  .hero-note { margin-top: 16px; font-size: 13px; color: var(--muted); animation: fadeUp 0.6s ease 0.4s both; }
+
+  .problem { padding: 120px 24px; max-width: 900px; margin: 0 auto; text-align: center; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .problem h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 700; line-height: 1.15; letter-spacing: -1px; color: var(--ink); }
+  .problem p { margin-top: 24px; font-size: 18px; font-weight: 300; color: var(--ink-soft); line-height: 1.8; max-width: 620px; margin-left: auto; margin-right: auto; }
+  .stats { display: flex; justify-content: center; gap: 48px; margin-top: 64px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: var(--green); line-height: 1; }
+  .stat-label { margin-top: 8px; font-size: 14px; color: var(--muted); max-width: 140px; line-height: 1.5; }
+
+  .how { background: var(--ink); padding: 120px 24px; color: white; }
+  .how-inner { max-width: 1000px; margin: 0 auto; }
+  .how .section-label { color: var(--green); }
+  .how h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; letter-spacing: -1px; line-height: 1.15; color: white; margin-bottom: 64px; max-width: 600px; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+  .step { padding: 32px; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; background: rgba(255,255,255,0.03); transition: border-color 0.2s, background 0.2s; }
+  .step:hover { border-color: rgba(29,158,117,0.4); background: rgba(29,158,117,0.05); }
+  .step-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900; color: var(--green); opacity: 0.4; line-height: 1; margin-bottom: 16px; }
+  .step h3 { font-size: 17px; font-weight: 500; color: white; margin-bottom: 10px; }
+  .step p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; font-weight: 300; }
+
+  .pillars { padding: 120px 24px; max-width: 1000px; margin: 0 auto; }
+  .pillars h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; letter-spacing: -1px; line-height: 1.15; color: var(--ink); margin-bottom: 64px; max-width: 500px; }
+  .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+  .pillar { padding: 32px 28px; background: white; border-radius: 16px; border: 1px solid rgba(29,158,117,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+  .pillar:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(29,158,117,0.12); }
+  .pillar-icon { font-size: 28px; margin-bottom: 16px; }
+  .pillar h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .pillar p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+  .waitlist-bottom { background: var(--green); padding: 100px 24px; text-align: center; color: white; }
+  .waitlist-bottom h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
+  .waitlist-bottom h2 em { font-style: italic; opacity: 0.7; }
+  .waitlist-bottom > p { font-size: 17px; font-weight: 300; opacity: 0.8; margin-bottom: 40px; }
+  .waitlist-btn { display: inline-block; padding: 16px 48px; background: white; color: var(--green); border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; text-decoration: none; transition: background 0.2s, transform 0.1s; }
+  .waitlist-btn:hover { background: var(--cream); transform: translateY(-2px); }
+  .waitlist-note { margin-top: 20px; font-size: 13px; opacity: 0.6; }
+
+  footer { background: var(--ink); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  footer .nav-logo { color: white; font-size: 20px; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">moqa</div>
+  <a href="https://tally.so/r/2EOXVe" target="_blank" class="nav-cta">Join Waitlist</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Now accepting early access</div>
+  <h1>Your career starts<br><em>before graduation.</em></h1>
+  <p class="hero-sub">Pakistan's first student-exclusive gig platform. Get verified, find real paid work, and build a portfolio that proves you're ready — while you're still in university.</p>
+  <a href="https://tally.so/r/2EOXVe" target="_blank" class="hero-cta-btn">Join the Waitlist</a>
+  <p class="hero-note">Students only. Verified by student ID.</p>
+</section>
+
+<section class="problem">
+  <p class="section-label reveal">The Problem</p>
+  <h2 class="reveal">"You need experience<br>to get experience."</h2>
+  <p class="reveal">Pakistani students graduate with degrees but no portfolio, no soft skills documentation, and no proof of professional experience. The job market demands what university never gave you a chance to build.</p>
+  <div class="stats">
+    <div class="stat reveal">
+      <div class="stat-num">0</div>
+      <div class="stat-label">paid gigs most students complete before graduating</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">years of "experience required" on every entry-level job post</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">Now</div>
+      <div class="stat-label">the time to start building your track record</div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="how-inner">
+    <p class="section-label">How Moqa Works</p>
+    <h2>Simple. Verified.<br>Built for students.</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Get Verified</h3>
+        <p>Upload your student ID. Only real, enrolled students get access. No exceptions.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h3>Find Gigs</h3>
+        <p>Browse real project requests from Pakistani startups and agencies. Any skill, any discipline.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h3>Negotiate Your Price</h3>
+        <p>InDrive-style price negotiation. You set your rate. Client counters. Both lock in. Deal done.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <h3>Build Your Board</h3>
+        <p>Every completed gig auto-populates your Achievement Board — a living, verifiable portfolio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pillars">
+  <p class="section-label reveal">What's Inside</p>
+  <h2 class="reveal">Four pillars.<br>One platform.</h2>
+  <div class="pillar-grid">
+    <div class="pillar reveal">
+      <div class="pillar-icon">💼</div>
+      <h3>Gigs</h3>
+      <p>Real paid work from verified clients. Negotiate price directly. Get paid through Moqa.</p>
+    </div>
+    <div class="pillar reveal">
+      <div class="pillar-icon">🏆</div>
+      <h3>Achievement Board</h3>
+      <p>Your gamified portfolio. Every gig completed adds proof of work — automatically.</p>
+    </div>
+    <div class="pillar reveal">
+      <div class="pillar-icon">📚</div>
+      <h3>Personal Branding Lab</h3>
+      <p>CV building, LinkedIn optimization, pitching, and behavioral assessments. With certifications.</p>
+    </div>
+    <div class="pillar reveal">
+      <div class="pillar-icon">🎯</div>
+      <h3>Mentorship</h3>
+      <p>1-on-1 sessions with working professionals. Unlocked after 3 completed gigs.</p>
+    </div>
+  </div>
+</section>
+
+<section class="waitlist-bottom" id="waitlist">
+  <h2>Be first.<br><em>Before everyone else.</em></h2>
+  <p>Early access is limited. Sign up and we'll reach out when Moqa launches.</p>
+  <a href="https://tally.so/r/2EOXVe" target="_blank" class="waitlist-btn">Get Early Access →</a>
+  <p class="waitlist-note">Students only · Free to join · Lahore & Karachi first</p>
+</section>
+
+<footer>
+  <div class="nav-logo">moqa</div>
+  <p>© 2026 Moqa. Pakistan's first student-exclusive gig platform.</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
