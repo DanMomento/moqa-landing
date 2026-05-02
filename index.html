@@ -73,6 +73,15 @@
     will-change: transform;
   }
 
+  /* grid overlay */
+  .hero::before {
+    content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(29,158,117,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(29,158,117,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
   /* green glow blob */
   .hero::after {
     content: ''; position: absolute; top: -160px; left: 50%; transform: translateX(-50%);
@@ -85,19 +94,23 @@
 
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(29,158,117,0.15); color: #6ee0b8;
+    color: #6ee0b8;
     border: 1px solid rgba(29,158,117,0.3); padding: 6px 16px;
     border-radius: 999px; font-size: 11px; font-weight: 500;
     letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 36px;
     animation: fadeUp 0.6s ease both;
+    position: relative; overflow: hidden;
+    background: rgba(29,158,117,0.12);
   }
   .hero-badge::before {
-    content: ''; width: 6px; height: 6px; background: var(--green);
-    border-radius: 50%; animation: pulse 2s infinite;
+    content: '';
+    position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(110,224,184,0.18) 50%, transparent 100%);
+    animation: badgeShimmer 3s ease-in-out infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.5); }
+  @keyframes badgeShimmer {
+    0% { left: -100%; }
+    50%, 100% { left: 160%; }
   }
 
   .hero h1 {
@@ -164,8 +177,15 @@
   .stat-label { margin-top: 12px; font-size: 13px; color: rgba(247,244,239,0.45); max-width: 140px; line-height: 1.6; margin-left: auto; margin-right: auto; }
 
   /* ── HOW IT WORKS ── */
-  .how { background: var(--ink); padding: 128px 24px; color: white; }
-  .how-inner { max-width: 1040px; margin: 0 auto; }
+  .how { background: var(--ink); padding: 128px 24px; color: white; position: relative; overflow: hidden; }
+  .how::before {
+    content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(29,158,117,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(29,158,117,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .how-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 1; }
   .how .section-label { color: var(--green); }
   .how h2 {
     font-family: 'Fraunces', serif;
@@ -210,7 +230,7 @@
     box-shadow: 0 16px 48px rgba(29,158,117,0.1), inset 0 0 0 1px rgba(29,158,117,0.4);
     border-color: transparent;
   }
-  .pillar-icon { font-size: 26px; margin-bottom: 18px; }
+  .pillar-icon { width: 28px; height: 28px; margin-bottom: 20px; }
   .pillar h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
   .pillar p { font-size: 13px; color: var(--muted); line-height: 1.75; font-weight: 300; }
 
@@ -327,22 +347,43 @@
   <h2 class="reveal">Built different.<br>For students only.</h2>
   <div class="pillar-grid">
     <div class="pillar reveal">
-      <div class="pillar-icon">🔒</div>
+      <div class="pillar-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="13" width="14" height="11" rx="2" stroke="#1D9E75" stroke-width="1.6" fill="none"/>
+          <path d="M10 13V9a4 4 0 0 1 8 0v4" stroke="#1D9E75" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <circle cx="14" cy="18.5" r="1.5" fill="#1D9E75"/>
+        </svg>
+      </div>
       <h3>Verified Only</h3>
       <p>No randoms. No fake profiles. Every person on Moqa is a real, enrolled Pakistani university student.</p>
     </div>
     <div class="pillar reveal">
-      <div class="pillar-icon">💸</div>
+      <div class="pillar-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="9" stroke="#1D9E75" stroke-width="1.6" fill="none"/>
+          <path d="M14 9v10M11.5 11.5h3.75a1.75 1.75 0 0 1 0 3.5H12a1.75 1.75 0 0 0 0 3.5H16.5" stroke="#1D9E75" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
       <h3>You Set the Price</h3>
       <p>No fixed rates. No race to the bottom. Negotiate your worth directly — and lock it in.</p>
     </div>
     <div class="pillar reveal">
-      <div class="pillar-icon">📈</div>
+      <div class="pillar-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="5,20 10,14 15,17 23,8" stroke="#1D9E75" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <polyline points="19,8 23,8 23,12" stroke="#1D9E75" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
       <h3>Proof of Work</h3>
       <p>Every job you complete builds something permanent. Graduate with a track record, not just a degree.</p>
     </div>
     <div class="pillar reveal">
-      <div class="pillar-icon">🎓</div>
+      <div class="pillar-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 11l8-6 8 6v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V11z" stroke="#1D9E75" stroke-width="1.6" fill="none"/>
+          <path d="M11 23v-7h6v7" stroke="#1D9E75" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
       <h3>Built for Pakistan</h3>
       <p>Local clients, local payments, local context. Finally something made for us.</p>
     </div>
