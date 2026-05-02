@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Moqa — Your career starts before graduation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700;1,9..144,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --green: #1D9E75;
@@ -20,15 +21,33 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
 
+  /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 48px;
-    background: rgba(247,244,239,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(29,158,117,0.1);
+    padding: 22px 48px;
+    transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+    background: transparent;
+    border-bottom: 1px solid transparent;
   }
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--green); letter-spacing: -0.5px; }
+  nav.scrolled {
+    background: rgba(15,26,21,0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: rgba(29,158,117,0.12);
+  }
+  nav.light {
+    background: rgba(247,244,239,0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: rgba(29,158,117,0.1);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 26px; font-weight: 900; color: white;
+    letter-spacing: -0.5px; transition: color 0.4s;
+  }
+  nav.light .nav-logo { color: var(--green); }
   .nav-cta {
     background: var(--green); color: white; border: none; padding: 10px 24px;
     border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 14px;
@@ -36,23 +55,40 @@
   }
   .nav-cta:hover { background: var(--green-deep); }
 
+  /* ── HERO ── */
   .hero {
     min-height: 100vh; display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 120px 24px 80px; text-align: center; position: relative; overflow: hidden;
+    padding: 120px 24px 80px; text-align: center;
+    position: relative; overflow: hidden;
+    background: var(--ink);
+    color: var(--cream);
   }
-  .hero::before {
-    content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
-    width: 800px; height: 800px;
-    background: radial-gradient(circle, rgba(29,158,117,0.12) 0%, transparent 70%);
-    pointer-events: none;
+
+  /* dot-grid background */
+  .hero-dots {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: radial-gradient(circle, rgba(29,158,117,0.35) 1px, transparent 1px);
+    background-size: 32px 32px;
+    will-change: transform;
   }
+
+  /* green glow blob */
+  .hero::after {
+    content: ''; position: absolute; top: -160px; left: 50%; transform: translateX(-50%);
+    width: 900px; height: 900px;
+    background: radial-gradient(circle, rgba(29,158,117,0.13) 0%, transparent 68%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .hero > * { position: relative; z-index: 1; }
+
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--green-pale); color: var(--green-deep);
-    border: 1px solid rgba(29,158,117,0.25); padding: 6px 16px;
-    border-radius: 999px; font-size: 12px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px;
+    background: rgba(29,158,117,0.15); color: #6ee0b8;
+    border: 1px solid rgba(29,158,117,0.3); padding: 6px 16px;
+    border-radius: 999px; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 36px;
     animation: fadeUp 0.6s ease both;
   }
   .hero-badge::before {
@@ -61,83 +97,175 @@
   }
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.4); }
+    50% { opacity: 0.4; transform: scale(1.5); }
   }
+
   .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(42px, 7vw, 88px); font-weight: 900;
-    line-height: 1.05; letter-spacing: -2px; color: var(--ink); max-width: 800px;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 8vw, 100px); font-weight: 900;
+    line-height: 1.0; letter-spacing: -3px; color: var(--cream); max-width: 860px;
     animation: fadeUp 0.6s ease 0.1s both;
   }
-  .hero h1 em { font-style: italic; color: var(--green); }
+  .hero h1 em {
+    font-style: italic; color: var(--green);
+    text-shadow: 0 0 40px rgba(29,158,117,0.4);
+  }
   .hero-sub {
-    margin-top: 24px; font-size: 18px; font-weight: 300; color: var(--ink-soft);
-    max-width: 480px; line-height: 1.7; animation: fadeUp 0.6s ease 0.2s both;
+    margin-top: 28px; font-size: 17px; font-weight: 300; color: rgba(247,244,239,0.65);
+    max-width: 460px; line-height: 1.75; animation: fadeUp 0.6s ease 0.2s both;
   }
   .hero-cta-btn {
-    margin-top: 48px; display: inline-block; padding: 16px 40px;
+    margin-top: 52px; display: inline-block; padding: 17px 44px;
     background: var(--green); color: white; border: none; border-radius: 999px;
     font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500;
-    cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.1s;
+    cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     animation: fadeUp 0.6s ease 0.3s both;
+    box-shadow: 0 0 0 0 rgba(29,158,117,0);
   }
-  .hero-cta-btn:hover { background: var(--green-deep); transform: translateY(-2px); }
-  .hero-note { margin-top: 16px; font-size: 13px; color: var(--muted); animation: fadeUp 0.6s ease 0.4s both; }
+  .hero-cta-btn:hover {
+    background: var(--green-deep); transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(29,158,117,0.35);
+  }
+  .hero-note {
+    margin-top: 16px; font-size: 12px; color: rgba(247,244,239,0.35);
+    letter-spacing: 0.04em;
+    animation: fadeUp 0.6s ease 0.4s both;
+  }
 
-  .problem { padding: 120px 24px; max-width: 900px; margin: 0 auto; text-align: center; }
-  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
-  .problem h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 700; line-height: 1.15; letter-spacing: -1px; color: var(--ink); }
-  .problem p { margin-top: 24px; font-size: 18px; font-weight: 300; color: var(--ink-soft); line-height: 1.8; max-width: 620px; margin-left: auto; margin-right: auto; }
-  .stats { display: flex; justify-content: center; gap: 48px; margin-top: 64px; flex-wrap: wrap; }
-  .stat { text-align: center; }
-  .stat-num { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: var(--green); line-height: 1; }
-  .stat-label { margin-top: 8px; font-size: 14px; color: var(--muted); max-width: 140px; line-height: 1.5; }
+  /* ── PROBLEM ── */
+  .problem { padding: 128px 24px; max-width: 900px; margin: 0 auto; text-align: center; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; }
+  .problem h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(34px, 5.5vw, 60px); font-weight: 700;
+    line-height: 1.12; letter-spacing: -1.5px; color: var(--ink);
+  }
+  .problem > p {
+    margin-top: 24px; font-size: 18px; font-weight: 300; color: var(--ink-soft);
+    line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto;
+  }
 
-  .how { background: var(--ink); padding: 120px 24px; color: white; }
-  .how-inner { max-width: 1000px; margin: 0 auto; }
+  /* stats — dark cards */
+  .stats { display: flex; justify-content: center; gap: 24px; margin-top: 72px; flex-wrap: wrap; }
+  .stat {
+    background: var(--ink); border-radius: 20px; padding: 40px 36px;
+    text-align: center; min-width: 180px; flex: 1; max-width: 220px;
+    border: 1px solid rgba(29,158,117,0.12);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .stat:hover {
+    border-color: rgba(29,158,117,0.35);
+    box-shadow: 0 0 32px rgba(29,158,117,0.1);
+  }
+  .stat-num {
+    font-family: 'Fraunces', serif; font-size: 52px; font-weight: 900;
+    color: var(--green); line-height: 1;
+  }
+  .stat-label { margin-top: 12px; font-size: 13px; color: rgba(247,244,239,0.45); max-width: 140px; line-height: 1.6; margin-left: auto; margin-right: auto; }
+
+  /* ── HOW IT WORKS ── */
+  .how { background: var(--ink); padding: 128px 24px; color: white; }
+  .how-inner { max-width: 1040px; margin: 0 auto; }
   .how .section-label { color: var(--green); }
-  .how h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; letter-spacing: -1px; line-height: 1.15; color: white; margin-bottom: 64px; max-width: 600px; }
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
-  .step { padding: 32px; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; background: rgba(255,255,255,0.03); transition: border-color 0.2s, background 0.2s; }
-  .step:hover { border-color: rgba(29,158,117,0.4); background: rgba(29,158,117,0.05); }
-  .step-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900; color: var(--green); opacity: 0.4; line-height: 1; margin-bottom: 16px; }
+  .how h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(34px, 5.5vw, 56px); font-weight: 700;
+    letter-spacing: -1.5px; line-height: 1.12; color: white;
+    margin-bottom: 72px; max-width: 580px;
+  }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+  .step {
+    padding: 36px 32px; border: 1px solid rgba(255,255,255,0.07); border-radius: 18px;
+    background: rgba(255,255,255,0.025);
+    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  }
+  .step:hover {
+    border-color: rgba(29,158,117,0.4);
+    background: rgba(29,158,117,0.04);
+    box-shadow: inset 0 0 0 1px rgba(29,158,117,0.4);
+  }
+  .step-num {
+    font-family: 'Fraunces', serif; font-size: 44px; font-weight: 900;
+    color: var(--green); opacity: 0.35; line-height: 1; margin-bottom: 20px;
+  }
   .step h3 { font-size: 17px; font-weight: 500; color: white; margin-bottom: 10px; }
-  .step p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; font-weight: 300; }
+  .step p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.75; font-weight: 300; }
 
-  .pillars { padding: 120px 24px; max-width: 1000px; margin: 0 auto; }
-  .pillars h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; letter-spacing: -1px; line-height: 1.15; color: var(--ink); margin-bottom: 64px; max-width: 500px; }
-  .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
-  .pillar { padding: 32px 28px; background: white; border-radius: 16px; border: 1px solid rgba(29,158,117,0.1); transition: transform 0.2s, box-shadow 0.2s; }
-  .pillar:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(29,158,117,0.12); }
-  .pillar-icon { font-size: 28px; margin-bottom: 16px; }
+  /* ── PILLARS ── */
+  .pillars { padding: 128px 24px; max-width: 1040px; margin: 0 auto; }
+  .pillars h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(34px, 5.5vw, 56px); font-weight: 700;
+    letter-spacing: -1.5px; line-height: 1.12; color: var(--ink);
+    margin-bottom: 72px; max-width: 500px;
+  }
+  .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
+  .pillar {
+    padding: 36px 28px; background: white; border-radius: 18px;
+    border: 1px solid rgba(29,158,117,0.1);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+  .pillar:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(29,158,117,0.1), inset 0 0 0 1px rgba(29,158,117,0.4);
+    border-color: transparent;
+  }
+  .pillar-icon { font-size: 26px; margin-bottom: 18px; }
   .pillar h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
-  .pillar p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+  .pillar p { font-size: 13px; color: var(--muted); line-height: 1.75; font-weight: 300; }
 
-  .waitlist-bottom { background: var(--green); padding: 100px 24px; text-align: center; color: white; }
-  .waitlist-bottom h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
-  .waitlist-bottom h2 em { font-style: italic; opacity: 0.7; }
-  .waitlist-bottom > p { font-size: 17px; font-weight: 300; opacity: 0.8; margin-bottom: 40px; }
-  .waitlist-btn { display: inline-block; padding: 16px 48px; background: white; color: var(--green); border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; text-decoration: none; transition: background 0.2s, transform 0.1s; }
+  /* ── WAITLIST CTA ── */
+  .waitlist-bottom { background: var(--green); padding: 112px 24px; text-align: center; color: white; }
+  .waitlist-bottom h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(34px, 5.5vw, 60px); font-weight: 900;
+    letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
+  }
+  .waitlist-bottom h2 em { font-style: italic; opacity: 0.65; }
+  .waitlist-bottom > p { font-size: 17px; font-weight: 300; opacity: 0.8; margin-bottom: 44px; }
+  .waitlist-btn {
+    display: inline-block; padding: 17px 52px; background: white; color: var(--green);
+    border-radius: 999px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
+  }
   .waitlist-btn:hover { background: var(--cream); transform: translateY(-2px); }
-  .waitlist-note { margin-top: 20px; font-size: 13px; opacity: 0.6; }
+  .waitlist-note { margin-top: 22px; font-size: 13px; opacity: 0.55; }
 
-  footer { background: var(--ink); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  footer .nav-logo { color: white; font-size: 20px; }
-  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); padding: 40px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer .nav-logo {
+    font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900;
+    color: white; letter-spacing: -0.5px;
+  }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.25); }
 
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    nav { padding: 18px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    .stats { gap: 16px; }
+    .stat { min-width: 140px; padding: 28px 24px; }
+  }
 </style>
 </head>
 <body>
 
-<nav>
+<nav id="main-nav">
   <div class="nav-logo">moqa</div>
   <a href="https://tally.so/r/2EOXVe" target="_blank" class="nav-cta">Join Waitlist</a>
 </nav>
 
-<section class="hero">
+<section class="hero" id="hero">
+  <div class="hero-dots" id="hero-dots"></div>
   <div class="hero-badge">Now accepting early access</div>
   <h1>Your career starts<br><em>before graduation.</em></h1>
   <p class="hero-sub">Pakistan's first student-exclusive gig platform. Get verified, find real paid work, and build a portfolio that proves you're ready — while you're still in university.</p>
@@ -234,16 +362,45 @@
 </footer>
 
 <script>
+  // Scroll-reveal
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
         setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // Nav: transparent on dark hero, frosted on scroll past hero
+  const nav = document.getElementById('main-nav');
+  const hero = document.getElementById('hero');
+  function updateNav() {
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    const scrolled = window.scrollY > 40;
+    const pastHero = window.scrollY + 80 >= heroBottom;
+    if (pastHero) {
+      nav.classList.remove('scrolled');
+      nav.classList.add('light');
+    } else if (scrolled) {
+      nav.classList.add('scrolled');
+      nav.classList.remove('light');
+    } else {
+      nav.classList.remove('scrolled', 'light');
+    }
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // Dot-grid parallax
+  const dots = document.getElementById('hero-dots');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const parallaxY = y * 0.3;
+    dots.style.transform = `translateY(${parallaxY}px)`;
+  }, { passive: true });
 </script>
 
 </body>
